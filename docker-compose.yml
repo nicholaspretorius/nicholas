@@ -45,6 +45,20 @@ services:
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
     networks:
       - wpsite
+  client:
+    depends_on:
+      - wordpress
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - "./client:/var/www/html/client"
+      - "/var/www/html/node_modules"
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_WP_API=http://localhost:8080
 networks:
   wpsite:
 volumes:
