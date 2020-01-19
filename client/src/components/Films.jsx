@@ -11,7 +11,7 @@ class Films extends Component {
 
   async componentDidMount() {
     try {
-      const res = await axios.get("/wp-json/wp/v2/films");
+      const res = await axios.get(`${process.env.REACT_APP_WP_API}/wp-json/wp/v2/films`);
       console.log(res, this.state.isLoaded);
       this.setState({ isLoaded: true, films: res.data });
     } catch (ex) {

@@ -9,11 +9,15 @@ class FilmPage extends Component {
   };
 
   componentDidMount() {
-    axios.get(`/wp-json/wp/v2/films/${this.props.match.params.id}`).then(res1 => {
-      axios.get(`/wp-json/wp/v2/users/${res1.data.author}`).then(res2 => {
-        this.setState({ film: res1.data, author: res2.data, isLoaded: true });
+    axios
+      .get(`${process.env.REACT_APP_WP_API}/wp-json/wp/v2/films/${this.props.match.params.id}`)
+      .then(res1 => {
+        axios
+          .get(`${process.env.REACT_APP_WP_API}/wp-json/wp/v2/users/${res1.data.author}`)
+          .then(res2 => {
+            this.setState({ film: res1.data, author: res2.data, isLoaded: true });
+          });
       });
-    });
   }
 
   render() {
